@@ -1,0 +1,16 @@
+numpy
+scipy
+pandas
+plotly
+matplotlib
+requests
+flask
+reportlab
+tensorflow
+vaderSentiment
+openpyxl
+pybind11
+pytest
+pytest-cov
+flake8
+black

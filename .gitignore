@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C++ build files
+build/
+*.o
+*.obj
+*.so
+*.a
+*.dll
+*.exe
+
+# Distribution / packaging
+.Python
+dist/
+develop-eggs/
+eggs/
+sdist/
+wheelhouse/
+*.egg-info/
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# Cache files
+.pytest_cache/
+.mypy_cache/
+.hypothesis/
+
+# Data files
+data/market_data/
+*.sqlite3
+
+# IDE / Editor specific
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,44 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint with flake8 and black
+        run: |
+          flake8 src/python --count --select=E9,F63,F7,F82 --show-source --statistics
+          black src/python --check
+
+      - name: Test Python with pytest
+        run: pytest src/python/tests --cov=src/python --cov-report=xml
+
+      - name: Install C++ Dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ libboost-all-dev libcurl4-openssl-dev libeigen3-dev
+
+      - name: Configure and Build C++
+        run: |
+          cmake -S src/cpp -B build
+          cmake --build build
+
+      - name: Run C++ Tests
+        run: ./build/tests/test_suite
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
